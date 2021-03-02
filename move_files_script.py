@@ -20,7 +20,7 @@ doc_ext = ".pdf", ".doc", ".docx", ".xlsx", ".xls", ".ppt", ".pptx", ".txt", ".h
 class Handler(FileSystemEventHandler):
     def on_modified(self, event):
         for file_name in os.listdir(download_dir):
-            time.sleep(0.25)#without this time delay, downloaded files wont save
+            time.sleep(0.5)#without this time delay, downloaded files wont save
             #move pictures
             if any(ext in file_name for ext in pic_ext):
                 new_name = self.file_exists(picture_dir,file_name)
@@ -32,6 +32,7 @@ class Handler(FileSystemEventHandler):
                 new_name = self.file_exists(video_dir,file_name)
                 src = download_dir + "/" + file_name
                 os.rename(src, video_dir + "/" + new_name)
+                
             #move music    
             elif any(ext in file_name for ext in mus_ext):
                 new_name = self.file_exists(music_dir,file_name)
@@ -61,7 +62,7 @@ observer.start()
 
 try:
    while True:
-            time.sleep(5)
+            time.sleep(10)
 except KeyboardInterrupt:
     observer.stop()
 
